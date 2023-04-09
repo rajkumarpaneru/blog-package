@@ -1,0 +1,13 @@
+{
+    "name": "raajkumarpaneru/blogpackage",
+    "description": "A demo package",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raj Kumar Paneru",
+            "email": "raajkumarpaneru@gmail.com"
+        }
+    ],
+    "require": {}
+}
