@@ -1,6 +1,6 @@
 <?php
 
-namespace JohnDoe\BlogPackage\Tests\Unit;
+namespace Raajkumarpaneru\BlogPackage\Tests\Unit;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;

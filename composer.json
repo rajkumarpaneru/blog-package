@@ -11,7 +11,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Raajkumarpaneru\\BlogPackage\\": "src"
+            "Raajkumarpaneru\\BlogPackage\\": "src",
+            "Raajkumarpaneru\\BlogPackage\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
