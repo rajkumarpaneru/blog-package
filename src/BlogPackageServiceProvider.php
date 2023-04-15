@@ -5,6 +5,7 @@ namespace Raajkumarpaneru\BlogPackage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Raajkumarpaneru\BlogPackage\Console\InstallBlogPackage;
+use Raajkumarpaneru\BlogPackage\View\Components\Alert;
 
 class BlogPackageServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,9 @@ class BlogPackageServiceProvider extends ServiceProvider
         $this->registerRoutes();
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
+        $this->loadViewComponentsAs('blogpackage', [
+            Alert::class,
+        ]);
     }
 
     protected function registerRoutes()
