@@ -2,16 +2,22 @@
 
 namespace Raajkumarpaneru\BlogPackage\Http\Controllers;
 
+use Raajkumarpaneru\BlogPackage\Models\Post;
+
 class PostController extends Controller
 {
     public function index()
     {
-        //
+        $posts = Post::all();
+
+        return view('blogpackage::posts.index', compact('posts'));
     }
 
     public function show()
     {
-        //
+        $post = Post::findOrFail(request('post'));
+
+        return view('blogpackage::posts.show', compact('post'));
     }
 
     public function store()
