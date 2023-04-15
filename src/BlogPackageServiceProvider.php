@@ -2,6 +2,7 @@
 
 namespace Raajkumarpaneru\BlogPackage;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Raajkumarpaneru\BlogPackage\Console\InstallBlogPackage;
 
@@ -32,6 +33,21 @@ class BlogPackageServiceProvider extends ServiceProvider
             }
         }
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->registerRoutes();
+    }
+
+    protected function registerRoutes()
+    {
+        Route::group($this->routeConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        });
+    }
+
+    protected function routeConfiguration()
+    {
+        return [
+            'prefix' => config('blogpackage.prefix'),
+            'middleware' => config('blogpackage.middleware'),
+        ];
     }
 }
