@@ -34,6 +34,8 @@ class BlogPackageServiceProvider extends ServiceProvider
         }
 
         $this->registerRoutes();
+
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'blogpackage');
     }
 
     protected function registerRoutes()
