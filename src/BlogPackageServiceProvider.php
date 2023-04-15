@@ -24,6 +24,11 @@ class BlogPackageServiceProvider extends ServiceProvider
                 __DIR__.'/../config/config.php' => config_path('blogpackage.php'),
             ], 'config');
 
+            // Publish views
+            $this->publishes([
+                __DIR__.'/../resources/views' => resource_path('views/vendor/blogpackage'),
+            ], 'views');
+
             // Export the migration
             if (! class_exists('CreatePostsTable')) {
                 $this->publishes([
