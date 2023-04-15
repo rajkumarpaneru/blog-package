@@ -36,6 +36,11 @@ class BlogPackageServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/views/components/' => resource_path('views/components'),
             ], 'view-components');
 
+            // Publish assets
+            $this->publishes([
+                __DIR__.'/../resources/assets' => public_path('blogpackage'),
+            ], 'assets');
+
             // Export the migration
             if (! class_exists('CreatePostsTable')) {
                 $this->publishes([
