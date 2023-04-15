@@ -17,4 +17,9 @@ class Post extends Model
     {
         PostFactory::new();
     }
+
+    public function author()
+    {
+        return $this->morphTo();
+    }
 }
