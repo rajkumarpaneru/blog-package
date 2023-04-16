@@ -18,6 +18,8 @@ class CreatePostTest extends TestCase
     function authenticated_users_can_create_a_post()
     {
         // To make sure we don't start with a Post
+        Event::fake();
+
         $this->assertCount(0, Post::all());
 
         $author = User::factory()->create();
@@ -134,5 +136,20 @@ class CreatePostTest extends TestCase
         );
 
         $this->assertEquals('New: ' . 'Initial title', $post->fresh()->title);
+    }
+
+    /** @test */
+    function the_title_of_a_post_is_updated_whenever_a_post_is_created()
+    {
+        $author = factory(User::class)->create();
+
+        $this->actingAs($author)->post(route('posts.store'), [
+            'title' => 'A valid title',
+            'body' => 'A valid body',
+        ]);
+
+        $post = Post::first();
+
+        $this->assertEquals('New: ' . 'A valid title', $post->title);
     }
 }
