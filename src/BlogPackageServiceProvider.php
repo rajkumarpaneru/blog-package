@@ -5,6 +5,7 @@ namespace Raajkumarpaneru\BlogPackage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Raajkumarpaneru\BlogPackage\Console\InstallBlogPackage;
+use Raajkumarpaneru\BlogPackage\Providers\EventServiceProvider;
 use Raajkumarpaneru\BlogPackage\View\Components\Alert;
 
 class BlogPackageServiceProvider extends ServiceProvider
@@ -12,6 +13,7 @@ class BlogPackageServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'blogpackage');
+        $this->app->register(EventServiceProvider::class);
     }
 
     public function boot()
