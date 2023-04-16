@@ -1,10 +1,9 @@
 <?php
 
-namespace Raajkumarapaneru\BlogPackage\Database\Factories;
+namespace Raajkumarpaneru\BlogPackage\Database\Factories;
 
 use Raajkumarpaneru\BlogPackage\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Raajkumarpaneru\BlogPackage\Tests\User;
 
 class PostFactory extends Factory
 {
@@ -22,14 +21,11 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $author = User::factory()->create();
-
         return [
-            'title'     => $this->faker->words(3, true),
-            'body'      => $this->faker->paragraph,
-            'author_id' => $author->id,
-            'author_type' => get_class($author)
+            'title' => $this->faker->title,
+            'body' => $this->faker->paragraph,
+            'author_id' => 999,
+            'author_type' => 'Fake\Author',
         ];
     }
 }
-

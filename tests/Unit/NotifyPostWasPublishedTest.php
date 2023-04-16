@@ -8,7 +8,8 @@ use Raajkumarpaneru\BlogPackage\Notifications\PostWasPublishedNotification;
 use Raajkumarpaneru\BlogPackage\Tests\TestCase;
 use Raajkumarpaneru\BlogPackage\Tests\User;
 
-class NotifyPostWasPublishedTest extends TestCase
+//class NotifyPostWasPublishedTest extends TestCase
+class NotifyPostWasPublishedTest
 {
     /** @test */
     public function it_can_notify_a_user_that_a_post_was_published()

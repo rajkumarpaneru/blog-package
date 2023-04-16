@@ -17,7 +17,6 @@ class CreatePostTest extends TestCase
     /** @test */
     function authenticated_users_can_create_a_post()
     {
-        // To make sure we don't start with a Post
         Event::fake();
 
         $this->assertCount(0, Post::all());
@@ -26,7 +25,7 @@ class CreatePostTest extends TestCase
 
         $response = $this->actingAs($author)->post(route('posts.store'), [
             'title' => 'My first fake title',
-            'body'  => 'My first fake body',
+            'body' => 'My first fake body',
         ]);
 
         $this->assertCount(1, Post::all());
@@ -46,12 +45,12 @@ class CreatePostTest extends TestCase
 
         $this->actingAs($author)->post(route('posts.store'), [
             'title' => '',
-            'body'  => 'Some valid body',
+            'body' => 'Some valid body',
         ])->assertSessionHasErrors('title');
 
         $this->actingAs($author)->post(route('posts.store'), [
             'title' => 'Some valid title',
-            'body'  => '',
+            'body' => '',
         ])->assertSessionHasErrors('body');
     }
 
@@ -63,12 +62,12 @@ class CreatePostTest extends TestCase
 
         $this->post(route('posts.store'), [
             'title' => 'A valid title',
-            'body'  => 'A valid body',
+            'body' => 'A valid body',
         ])->assertForbidden();
     }
 
     /** @test */
-    function all_posts_are_shown_via_the_index_route()
+    function all_posts_are_shown_on_the_index_route()
     {
         // Given we have a couple of Posts
         Post::factory()->create([
@@ -91,11 +90,11 @@ class CreatePostTest extends TestCase
     }
 
     /** @test */
-    function a_single_post_is_shown_via_the_show_route()
+    function a_single_post_can_be_viewed_on_the_show_route()
     {
         $post = Post::factory()->create([
             'title' => 'The single post title',
-            'body'  => 'The single post body',
+            'body' => 'The single post body',
         ]);
 
         $this->get(route('posts.show', $post))
@@ -141,7 +140,7 @@ class CreatePostTest extends TestCase
     /** @test */
     function the_title_of_a_post_is_updated_whenever_a_post_is_created()
     {
-        $author = factory(User::class)->create();
+        $author = User::factory()->create();
 
         $this->actingAs($author)->post(route('posts.store'), [
             'title' => 'A valid title',
@@ -165,8 +164,7 @@ class CreatePostTest extends TestCase
 
         $post = Post::first();
 
-        // 'New: ' was added by our event listener
+        // 'New: ' was added by our even listener
         $this->assertEquals('New: Some title that was not capitalized', $post->title);
     }
-
 }

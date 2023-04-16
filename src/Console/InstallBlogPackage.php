@@ -48,7 +48,7 @@ class InstallBlogPackage extends Command
     private function publishConfiguration($forcePublish = false)
     {
         $params = [
-            '--provider' => "JohnDoe\BlogPackage\BlogPackageServiceProvider",
+            '--provider' => "Raajkumarpaneru\BlogPackage\BlogPackageServiceProvider",
             '--tag' => "config"
         ];
 

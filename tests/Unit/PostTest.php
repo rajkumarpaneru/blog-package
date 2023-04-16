@@ -3,8 +3,8 @@
 namespace Raajkumarpaneru\BlogPackage\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Raajkumarpaneru\BlogPackage\Tests\TestCase;
 use Raajkumarpaneru\BlogPackage\Models\Post;
+use Raajkumarpaneru\BlogPackage\Tests\TestCase;
 use Raajkumarpaneru\BlogPackage\Tests\User;
 
 class PostTest extends TestCase
@@ -28,8 +28,7 @@ class PostTest extends TestCase
     /** @test */
     function a_post_has_an_author_id()
     {
-        // Note that we are not assuming relations here, just that we have a column to store the 'id' of the author
-        $post = Post::factory()->create(['author_id' => 999]); // we choose an off-limits value for the author_id so it is unlikely to collide with another author_id in our tests
+        $post = Post::factory()->create(['author_id' => 999]);
         $this->assertEquals(999, $post->author_id);
     }
 
@@ -39,6 +38,7 @@ class PostTest extends TestCase
         $post = Post::factory()->create(['author_type' => 'Fake\User']);
         $this->assertEquals('Fake\User', $post->author_type);
     }
+
 
     /** @test */
     function a_post_belongs_to_an_author()
@@ -54,8 +54,6 @@ class PostTest extends TestCase
         $this->assertCount(1, Post::all());
         $this->assertCount(1, $author->posts);
 
-        // Using tap() to alias $author->posts()->first() to $post
-        // To provide cleaner and grouped assertions
         tap($author->posts()->first(), function ($post) use ($author) {
             $this->assertEquals('My first fake post', $post->title);
             $this->assertEquals('The body of this fake post', $post->body);

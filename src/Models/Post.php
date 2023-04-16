@@ -18,6 +18,6 @@ class Post extends Model
 
     protected static function newFactory()
     {
-        return \JohnDoe\BlogPackage\Database\Factories\PostFactory::new();
+        return \Raajkumarpaneru\BlogPackage\Database\Factories\PostFactory::new();
     }
 }

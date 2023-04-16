@@ -4,18 +4,28 @@ namespace Raajkumarpaneru\BlogPackage\Tests\Unit;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Raajkumarpaneru\BlogPackage\Console\InstallBlogPackage;
 use Raajkumarpaneru\BlogPackage\Tests\TestCase;
 
 class InstallBlogPackageTest extends TestCase
 {
-    /** @test */
-    function the_install_command_copies_the_configuration()
+    public function setUp(): void
     {
-        // make sure we're starting from a clean state
-        if (File::exists(config_path('blogpackage.php'))) {
-            unlink(config_path('blogpackage.php'));
-        }
+        parent::setUp();
 
+        $this->cleanUp();
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->cleanUp();
+    }
+
+    /** @test */
+    public function the_install_command_copies_a_the_configuration()
+    {
         $this->assertFalse(File::exists(config_path('blogpackage.php')));
 
         Artisan::call('blogpackage:install');
@@ -45,9 +55,6 @@ class InstallBlogPackageTest extends TestCase
 
         // Assert that the original contents of the config file remain
         $this->assertEquals('test contents', file_get_contents(config_path('blogpackage.php')));
-
-        // Clean up
-        unlink(config_path('blogpackage.php'));
     }
 
     /** @test */
@@ -67,18 +74,21 @@ class InstallBlogPackageTest extends TestCase
             'yes'
         );
 
-        // execute the command to force override
         $command->execute();
 
         $command->expectsOutput('Overwriting configuration file...');
 
         // Assert that the original contents are overwritten
         $this->assertEquals(
-            file_get_contents(__DIR__.'/../config/config.php'),
+            file_get_contents(__DIR__.'/../../config/config.php'),
             file_get_contents(config_path('blogpackage.php'))
         );
+    }
 
-        // Clean up
-        unlink(config_path('blogpackage.php'));
+    private function cleanUp()
+    {
+       if (File::exists(config_path('blogpackage.php'))) {
+            unlink(config_path('blogpackage.php'));
+       }
     }
 }
