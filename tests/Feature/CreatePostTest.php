@@ -1,10 +1,11 @@
 <?php
 
-namespace JohnDoe\BlogPackage\Tests\Feature;
+namespace Raajkumarpaneru\BlogPackage\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Raajkumarpaneru\BlogPackage\Events\PostWasCreated;
+use Raajkumarpaneru\BlogPackage\Listeners\UpdatePostTitle;
 use Raajkumarpaneru\BlogPackage\Models\Post;
 use Raajkumarpaneru\BlogPackage\Tests\TestCase;
 use Raajkumarpaneru\BlogPackage\Tests\User;
@@ -117,5 +118,21 @@ class CreatePostTest extends TestCase
         Event::assertDispatched(PostWasCreated::class, function ($event) use ($post) {
             return $event->post->id === $post->id;
         });
+    }
+
+    /** @test */
+    function a_newly_created_posts_title_will_be_changed()
+    {
+        $post = Post::factory()->create([
+            'title' => 'Initial title',
+        ]);
+
+        $this->assertEquals('Initial title', $post->title);
+
+        (new UpdatePostTitle())->handle(
+            new PostWasCreated($post)
+        );
+
+        $this->assertEquals('New: ' . 'Initial title', $post->fresh()->title);
     }
 }
