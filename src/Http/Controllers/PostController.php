@@ -2,6 +2,7 @@
 
 namespace Raajkumarpaneru\BlogPackage\Http\Controllers;
 
+use Raajkumarpaneru\BlogPackage\Events\PostWasCreated;
 use Raajkumarpaneru\BlogPackage\Models\Post;
 
 class PostController extends Controller
@@ -40,6 +41,8 @@ class PostController extends Controller
             'title' => request('title'),
             'body' => request('body'),
         ]);
+
+        event(new PostWasCreated($post));
 
         return redirect(route('posts.show', $post));
     }
